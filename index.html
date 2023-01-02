@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>test</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+<script>
+function addPart(events) {
+	const synth = new Tone.Synth().toDestination();
+	const part = new Tone.Part(
+		((time, note) => {
+			synth.triggerAttackRelease(note, "8n", time);
+		}),
+		events
+	).start(0);
+	part.loopStart = 0;
+	part.loopEnd = "2:0";
+	part.loop = true;	
+}
+
+document.body.onclick = function() {
+
+	Tone.Transport.timeSignature = [6, 8];
+	addPart([
+		["0:0", "C3"],
+		["0:1:2", "C3"],
+		["1:0", "C3"],
+		["1:1", "D3"],
+		["1:1:2", "E3"],
+	]);
+	addPart([
+		["0:0", "E3"],
+		["0:1", "D3"],
+		["0:1:2", "E3"],
+		["0:2:2", "F3"],
+		["1:0", "G3"]
+	]);
+	addPart([
+		["0:0:0", "C4"],
+		["0:0:2", "C4"],
+		["0:1:0", "C4"],
+		["0:1:2", "G3"],
+		["0:2:0", "G3"],
+		["0:2:2", "G3"],
+		["1:0:0", "E3"],
+		["1:0:2", "E3"],
+		["1:1:0", "E3"],
+		["1:1:2", "C3"],
+		["1:2:0", "C3"],
+		["1:2:2", "C3"],
+	]);
+	addPart([
+		["0:0", "G3"],
+		["0:1", "F3"],
+		["0:1:2", "E3"],
+		["0:2:2", "D3"],
+		["1:0", "C3"]
+	]);
+
+	Tone.Transport.start();
+};
+</script>
+</body>
+</html>
